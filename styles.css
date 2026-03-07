@@ -17,6 +17,30 @@
     --font-sans: 'DM Sans', system-ui, sans-serif;
 }
 
+/* ---- Dark Theme ---- */
+
+[data-theme="dark"] {
+    --bg: #1F1D1A;
+    --bg-elevated: #292724;
+    --text: #E5E0D8;
+    --text-muted: #968F86;
+    --accent: #D17A4F;
+    --accent-hover: #E08B60;
+    --border: #353230;
+}
+
+[data-theme="dark"] body::after {
+    opacity: 0.04;
+}
+
+[data-theme="dark"] .project-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .gh-stat:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
 html {
     font-size: 16px;
     scroll-behavior: smooth;
@@ -118,6 +142,33 @@ nav {
 .nav-links a:hover::after,
 .nav-links a.active::after {
     width: 100%;
+}
+
+/* ---- Theme Toggle ---- */
+
+.theme-toggle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--text-muted);
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--text);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--text-muted);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: var(--text);
+    border-color: var(--text);
 }
 
 /* ---- Main Content ---- */
@@ -547,27 +598,16 @@ footer p {
     letter-spacing: 0.02em;
 }
 
-/* ---- Page Load Animations ---- */
+/* ---- Page Transition ---- */
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-header { animation: fadeUp 0.5s ease-out both; }
-main .container > *:nth-child(1) { animation: fadeUp 0.5s ease-out 0.05s both; }
-main .container > *:nth-child(2) { animation: fadeUp 0.5s ease-out 0.1s both; }
-main .container > *:nth-child(3) { animation: fadeUp 0.5s ease-out 0.15s both; }
-main .container > *:nth-child(4) { animation: fadeUp 0.5s ease-out 0.2s both; }
-main .container > *:nth-child(5) { animation: fadeUp 0.5s ease-out 0.25s both; }
-main .container > *:nth-child(6) { animation: fadeUp 0.5s ease-out 0.3s both; }
-main .container > *:nth-child(7) { animation: fadeUp 0.5s ease-out 0.35s both; }
+main {
+    animation: fadeIn 0.25s ease-out both;
+}
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

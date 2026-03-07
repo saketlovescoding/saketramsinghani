@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})()</script>
 </head>
 <body>
     <header>
@@ -21,6 +22,7 @@
                     <li><a href="projects.html" class="active">Projects</a></li>
                     <li><a href="stats.html">Stats</a></li>
                 </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
             </nav>
         </div>
     </header>
@@ -64,5 +66,13 @@
             <p>&copy; 2026 Saket Ramsinghani</p>
         </div>
     </footer>
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    </script>
 </body>
 </html>

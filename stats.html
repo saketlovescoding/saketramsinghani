@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})()</script>
 </head>
 <body>
     <header>
@@ -21,6 +22,7 @@
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="stats.html" class="active">Stats</a></li>
                 </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
             </nav>
         </div>
     </header>
@@ -52,7 +54,7 @@
 
             <h3 class="gh-section-title">Contribution Streak</h3>
             <div class="stat-card stat-card--wide">
-                <img src="https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=F4EDE4&ring=B85C38&fire=B85C38&currStreakLabel=1C1917&sideLabels=1C1917&currStreakNum=1C1917&sideNums=78716C&dates=78716C" alt="GitHub Streak" loading="lazy">
+                <img id="streak-img" src="https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=F4EDE4&ring=B85C38&fire=B85C38&currStreakLabel=1C1917&sideLabels=1C1917&currStreakNum=1C1917&sideNums=78716C&dates=78716C" alt="GitHub Streak" loading="lazy">
             </div>
 
             <h3 class="gh-section-title">Contribution Graph</h3>
@@ -166,6 +168,27 @@
         }
 
         fetchGitHubStats();
+
+        function updateStreakTheme() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var img = document.getElementById('streak-img');
+            if (!img) return;
+            var bg = isDark ? '292724' : 'F4EDE4';
+            var ring = isDark ? 'D17A4F' : 'B85C38';
+            var label = isDark ? 'E5E0D8' : '1C1917';
+            var nums = isDark ? '968F86' : '78716C';
+            img.src = 'https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=' + bg + '&ring=' + ring + '&fire=' + ring + '&currStreakLabel=' + label + '&sideLabels=' + label + '&currStreakNum=' + label + '&sideNums=' + nums + '&dates=' + nums;
+        }
+
+        updateStreakTheme();
+
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateStreakTheme();
+        });
     </script>
 </body>
 </html>

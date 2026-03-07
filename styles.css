@@ -346,6 +346,184 @@ a:hover {
     text-transform: uppercase;
 }
 
+/* ---- Stats Page ---- */
+
+.github-overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.gh-stat {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.gh-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(28, 25, 23, 0.05);
+}
+
+.gh-stat-value {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.gh-stat-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+}
+
+.gh-section-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.lang-bars {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.lang-row {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.lang-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lang-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.lang-pct {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.lang-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.lang-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.6s ease-out;
+}
+
+.stat-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.stat-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.stat-card--wide {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.stat-card--wide img {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.book-list {
+    display: grid;
+    gap: 0;
+    margin-top: 1.5rem;
+}
+
+.book {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto;
+    gap: 0 1.25rem;
+    align-items: baseline;
+}
+
+.book:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.book-status {
+    grid-row: 1 / 3;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding-top: 0.15rem;
+}
+
+.book-status--reading {
+    color: var(--accent);
+}
+
+.book-status--finished {
+    color: var(--text-muted);
+}
+
+.book h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+}
+
+.book-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
 /* ---- Footer ---- */
 
 footer {
@@ -443,6 +621,27 @@ main .container > *:nth-child(7) { animation: fadeUp 0.5s ease-out 0.35s both; }
     .blog-list li {
         grid-template-columns: 1fr;
         gap: 0.25rem;
+    }
+
+    .github-overview {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .gh-stat {
+        padding: 1rem;
+    }
+
+    .gh-stat-value {
+        font-size: 1.75rem;
+    }
+
+    .stat-card--wide img {
+        max-width: 100%;
+    }
+
+    .book {
+        grid-template-columns: 70px 1fr;
     }
 
     .project-card {

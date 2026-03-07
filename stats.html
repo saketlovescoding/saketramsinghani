@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats | Saket Ramsinghani</title>
+    <meta name="description" content="GitHub stats and reading list of Saket Ramsinghani">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Saket Ramsinghani</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="stats.html" class="active">Stats</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Stats</h1>
+            <p class="page-intro">Code activity and what I'm reading.</p>
+
+            <h2>GitHub</h2>
+
+            <div class="github-overview" id="github-overview">
+                <div class="gh-stat">
+                    <span class="gh-stat-value" id="gh-repos">-</span>
+                    <span class="gh-stat-label">Public Repos</span>
+                </div>
+                <div class="gh-stat">
+                    <span class="gh-stat-value" id="gh-followers">-</span>
+                    <span class="gh-stat-label">Followers</span>
+                </div>
+                <div class="gh-stat">
+                    <span class="gh-stat-value" id="gh-following">-</span>
+                    <span class="gh-stat-label">Following</span>
+                </div>
+            </div>
+
+            <h3 class="gh-section-title">Top Languages</h3>
+            <div class="lang-bars" id="lang-bars"></div>
+
+            <h3 class="gh-section-title">Contribution Streak</h3>
+            <div class="stat-card stat-card--wide">
+                <img src="https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=F4EDE4&ring=B85C38&fire=B85C38&currStreakLabel=1C1917&sideLabels=1C1917&currStreakNum=1C1917&sideNums=78716C&dates=78716C" alt="GitHub Streak" loading="lazy">
+            </div>
+
+            <h3 class="gh-section-title">Contribution Graph</h3>
+            <div class="stat-card stat-card--wide">
+                <img src="https://ghchart.rshah.org/B85C38/saketlovescoding" alt="GitHub Contribution Graph" loading="lazy">
+            </div>
+
+            <hr class="separator">
+
+            <h2>Reading</h2>
+            <p>Books I'm reading or have recently finished.</p>
+
+            <div class="book-list">
+                <div class="book">
+                    <span class="book-status book-status--reading">Reading</span>
+                    <h3>Atomic Habits</h3>
+                    <p class="book-author">James Clear</p>
+                </div>
+                <div class="book">
+                    <span class="book-status book-status--finished">Finished</span>
+                    <h3>Clean Code</h3>
+                    <p class="book-author">Robert C. Martin</p>
+                </div>
+                <div class="book">
+                    <span class="book-status book-status--finished">Finished</span>
+                    <h3>The Pragmatic Programmer</h3>
+                    <p class="book-author">David Thomas & Andrew Hunt</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Saket Ramsinghani</p>
+        </div>
+    </footer>
+
+    <script>
+        const USERNAME = 'saketlovescoding';
+
+        const LANG_COLORS = {
+            JavaScript: '#f1e05a',
+            TypeScript: '#3178c6',
+            HTML: '#e34c26',
+            CSS: '#663399',
+            Java: '#b07219',
+            Python: '#3572A5',
+            Shell: '#89e051'
+        };
+
+        async function fetchGitHubStats() {
+            try {
+                const [userRes, reposRes] = await Promise.all([
+                    fetch('https://api.github.com/users/' + USERNAME),
+                    fetch('https://api.github.com/users/' + USERNAME + '/repos?per_page=100&sort=updated')
+                ]);
+
+                if (!userRes.ok || !reposRes.ok) return;
+
+                const user = await userRes.json();
+                const repos = await reposRes.json();
+
+                document.getElementById('gh-repos').textContent = user.public_repos;
+                document.getElementById('gh-followers').textContent = user.followers;
+                document.getElementById('gh-following').textContent = user.following;
+
+                const langBytes = {};
+                repos.forEach(function(repo) {
+                    if (repo.language && !repo.fork) {
+                        langBytes[repo.language] = (langBytes[repo.language] || 0) + (repo.size || 0);
+                    }
+                });
+
+                const sorted = Object.entries(langBytes)
+                    .sort(function(a, b) { return b[1] - a[1]; })
+                    .slice(0, 5);
+
+                const total = sorted.reduce(function(sum, entry) { return sum + entry[1]; }, 0);
+                var container = document.getElementById('lang-bars');
+
+                if (sorted.length === 0) {
+                    container.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">No language data available.</p>';
+                    return;
+                }
+
+                var html = '';
+                sorted.forEach(function(entry) {
+                    var lang = entry[0];
+                    var bytes = entry[1];
+                    var pct = ((bytes / total) * 100).toFixed(1);
+                    var color = LANG_COLORS[lang] || 'var(--accent)';
+                    html += '<div class="lang-row">' +
+                        '<div class="lang-info">' +
+                            '<span class="lang-name">' +
+                                '<span class="lang-dot" style="background:' + color + '"></span>' +
+                                lang +
+                            '</span>' +
+                            '<span class="lang-pct">' + pct + '%</span>' +
+                        '</div>' +
+                        '<div class="lang-track">' +
+                            '<div class="lang-fill" style="width:' + pct + '%;background:' + color + '"></div>' +
+                        '</div>' +
+                    '</div>';
+                });
+                container.innerHTML = html;
+
+            } catch (e) {
+                // Silently fail — stats just show dashes
+            }
+        }
+
+        fetchGitHubStats();
+    </script>
+</body>
+</html>

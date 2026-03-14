@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes | Saket Ramsinghani</title>
+    <meta name="description" content="Learning notes by Saket Ramsinghani">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})()</script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">Saket Ramsinghani</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="notes.html" class="active">Notes</a></li>
+                    <li><a href="stats.html">Stats</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Notes</h1>
+            <p class="page-intro">Things I'm learning, written down so they stick.</p>
+
+            <div class="notes-list" id="notes-list">
+                <p class="notes-loading">Loading notes...</p>
+            </div>
+
+            <div class="notes-detail" id="notes-detail" style="display:none">
+                <button class="notes-back" id="notes-back">&larr; Back to all notes</button>
+                <div class="notes-content" id="notes-content"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Saket Ramsinghani</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        var USERNAME = 'saketlovescoding';
+
+        var NOTES_SOURCES = [
+            {
+                label: 'React',
+                description: 'Components, props, JSX, tooling, and project setup from the Padre Gino\'s course.',
+                tag: 'React',
+                repo: 'react',
+                path: 'padre-ginos/NOTES.md'
+            }
+        ];
+
+        var listEl = document.getElementById('notes-list');
+        var detailEl = document.getElementById('notes-detail');
+        var contentEl = document.getElementById('notes-content');
+        var backBtn = document.getElementById('notes-back');
+        var cache = {};
+
+        function renderList() {
+            var html = '<ul class="notes-card-list">';
+            NOTES_SOURCES.forEach(function(source, i) {
+                html += '<li class="notes-card" data-index="' + i + '">' +
+                    '<div class="notes-card-header">' +
+                        '<h3>' + source.label + '</h3>' +
+                        '<span class="notes-card-tag">' + source.tag + '</span>' +
+                    '</div>' +
+                    '<p>' + source.description + '</p>' +
+                '</li>';
+            });
+            html += '</ul>';
+            listEl.innerHTML = html;
+        }
+
+        function showDetail(index) {
+            var source = NOTES_SOURCES[index];
+            listEl.style.display = 'none';
+            detailEl.style.display = 'block';
+            window.scrollTo(0, 0);
+
+            var key = source.repo + '/' + source.path;
+            if (cache[key]) {
+                contentEl.innerHTML = '<div class="notes-rendered">' + marked.parse(cache[key]) + '</div>';
+                return;
+            }
+
+            contentEl.innerHTML = '<p class="notes-loading">Loading notes...</p>';
+            var url = 'https://raw.githubusercontent.com/' + USERNAME + '/' + source.repo + '/main/' + source.path;
+            fetch(url)
+                .then(function(res) {
+                    if (!res.ok) throw new Error('Not found');
+                    return res.text();
+                })
+                .then(function(md) {
+                    cache[key] = md;
+                    contentEl.innerHTML = '<div class="notes-rendered">' + marked.parse(md) + '</div>';
+                })
+                .catch(function() {
+                    contentEl.innerHTML = '<p class="notes-error">Could not load notes. The file may not exist on GitHub yet.</p>';
+                });
+        }
+
+        function showList() {
+            detailEl.style.display = 'none';
+            listEl.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        renderList();
+
+        listEl.addEventListener('click', function(e) {
+            var card = e.target.closest('.notes-card');
+            if (!card) return;
+            showDetail(parseInt(card.getAttribute('data-index'), 10));
+        });
+
+        backBtn.addEventListener('click', showList);
+
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            var next = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    </script>
+</body>
+</html>

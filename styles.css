@@ -397,6 +397,14 @@ a:hover {
     text-transform: uppercase;
 }
 
+.blogs-placeholder,
+.projects-placeholder {
+    margin-top: 2.5rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* ---- Stats Page ---- */
 
 .github-overview {
@@ -575,6 +583,221 @@ a:hover {
     margin: 0;
 }
 
+/* ---- Notes Page ---- */
+
+.notes-card-list {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.notes-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.notes-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+    transition: height 0.35s ease;
+}
+
+.notes-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(28, 25, 23, 0.06);
+    border-color: transparent;
+}
+
+[data-theme="dark"] .notes-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.notes-card:hover::before {
+    height: 40%;
+}
+
+.notes-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.notes-card h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.notes-card-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    background: var(--bg);
+    border-radius: 100px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.notes-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.notes-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.notes-back:hover {
+    color: var(--accent);
+}
+
+.notes-loading,
+.notes-error {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.notes-rendered h1 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.notes-rendered h2 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.notes-rendered h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.notes-rendered p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+}
+
+.notes-rendered ul,
+.notes-rendered ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.notes-rendered li {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.notes-rendered li strong {
+    color: var(--text);
+}
+
+.notes-rendered code {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.82rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    color: var(--accent);
+}
+
+.notes-rendered pre {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+}
+
+.notes-rendered pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.8rem;
+    line-height: 1.65;
+}
+
+.notes-rendered table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+}
+
+.notes-rendered th,
+.notes-rendered td {
+    text-align: left;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+.notes-rendered th {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.notes-rendered hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+}
+
+.notes-rendered blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 /* ---- Footer ---- */
 
 footer {
@@ -682,6 +905,10 @@ main {
 
     .book {
         grid-template-columns: 70px 1fr;
+    }
+
+    .notes-card {
+        padding: 1.5rem;
     }
 
     .project-card {

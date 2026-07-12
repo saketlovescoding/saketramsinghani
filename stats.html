@@ -4,26 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats | Saket Ramsinghani</title>
-    <meta name="description" content="GitHub stats and reading list of Saket Ramsinghani">
+    <meta name="description" content="GitHub stats of Saket Ramsinghani">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><circle cx=%2750%27 cy=%2750%27 r=%2736%27 fill=%27%23B85C38%27/></svg>">
     <link rel="stylesheet" href="styles.css">
-    <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})()</script>
+    <script data-page-mode="professional">(function(){var d=document.documentElement,s=document.currentScript,f=s&&s.getAttribute('data-page-mode'),m=f;try{m=f||localStorage.getItem('mode')}catch(e){}m=m||'professional';d.setAttribute('data-mode',m);if(f){try{localStorage.setItem('mode',f)}catch(e){}}var t=null;try{t=localStorage.getItem('theme')}catch(e){}if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){t='dark'}if(t){d.setAttribute('data-theme',t)}})()</script>
+    <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
 </head>
-<body>
+<body data-scene="ambient">
     <header>
         <div class="container">
-            <nav>
+            <div class="nav-top">
                 <a href="index.html" class="logo">Saket Ramsinghani</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="blogs.html">Blogs</a></li>
+                <div class="nav-controls">
+                    <div class="mode-switch" role="group" aria-label="Site mode">
+                        <button type="button" class="mode-btn" data-mode-btn="personal">Personal</button>
+                        <span class="mode-divider" aria-hidden="true"></span>
+                        <button type="button" class="mode-btn" data-mode-btn="professional">Professional</button>
+                    </div>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+                </div>
+            </div>
+            <nav aria-label="Primary">
+                <ul class="nav-links nav-links--professional">
+                    <li><a href="index.html">Work</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blogs.html">Blog</a></li>
                     <li><a href="notes.html">Notes</a></li>
                     <li><a href="stats.html" class="active">Stats</a></li>
                 </ul>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+                <ul class="nav-links nav-links--personal">
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="thoughts.html">Thoughts</a></li>
+                    <li><a href="reading.html">Reading</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -31,7 +47,7 @@
     <main>
         <div class="container">
             <h1>Stats</h1>
-            <p class="page-intro">Code activity and what I'm reading.</p>
+            <p class="page-intro">Code activity, in numbers.</p>
 
             <h2>GitHub</h2>
 
@@ -55,35 +71,12 @@
 
             <h3 class="gh-section-title">Contribution Streak</h3>
             <div class="stat-card stat-card--wide">
-                <img id="streak-img" src="https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=F4EDE4&ring=B85C38&fire=B85C38&currStreakLabel=1C1917&sideLabels=1C1917&currStreakNum=1C1917&sideNums=78716C&dates=78716C" alt="GitHub Streak" loading="lazy">
+                <img id="streak-img" src="https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=F4F4F2&ring=B85C38&fire=B85C38&currStreakLabel=1A1C1F&sideLabels=1A1C1F&currStreakNum=1A1C1F&sideNums=6E7278&dates=6E7278" alt="GitHub Streak" loading="lazy">
             </div>
 
             <h3 class="gh-section-title">Contribution Graph</h3>
             <div class="stat-card stat-card--wide">
                 <img src="https://ghchart.rshah.org/B85C38/saketlovescoding" alt="GitHub Contribution Graph" loading="lazy">
-            </div>
-
-            <hr class="separator">
-
-            <h2>Reading</h2>
-            <p>Books I'm reading or have recently finished.</p>
-
-            <div class="book-list">
-                <div class="book">
-                    <span class="book-status book-status--reading">Reading</span>
-                    <h3>Atomic Habits</h3>
-                    <p class="book-author">James Clear</p>
-                </div>
-                <div class="book">
-                    <span class="book-status book-status--finished">Finished</span>
-                    <h3>Clean Code</h3>
-                    <p class="book-author">Robert C. Martin</p>
-                </div>
-                <div class="book">
-                    <span class="book-status book-status--finished">Finished</span>
-                    <h3>The Pragmatic Programmer</h3>
-                    <p class="book-author">David Thomas & Andrew Hunt</p>
-                </div>
             </div>
         </div>
     </main>
@@ -169,27 +162,9 @@
         }
 
         fetchGitHubStats();
-
-        function updateStreakTheme() {
-            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            var img = document.getElementById('streak-img');
-            if (!img) return;
-            var bg = isDark ? '292724' : 'F4EDE4';
-            var ring = isDark ? 'D17A4F' : 'B85C38';
-            var label = isDark ? 'E5E0D8' : '1C1917';
-            var nums = isDark ? '968F86' : '78716C';
-            img.src = 'https://github-readme-streak-stats.herokuapp.com/?user=saketlovescoding&hide_border=true&background=' + bg + '&ring=' + ring + '&fire=' + ring + '&currStreakLabel=' + label + '&sideLabels=' + label + '&currStreakNum=' + label + '&sideNums=' + nums + '&dates=' + nums;
-        }
-
-        updateStreakTheme();
-
-        document.getElementById('theme-toggle').addEventListener('click', function() {
-            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            var next = isDark ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-            updateStreakTheme();
-        });
     </script>
+
+    <script src="js/site.js" defer></script>
+    <script type="module" src="js/scene.js"></script>
 </body>
 </html>

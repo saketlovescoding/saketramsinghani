@@ -8,41 +8,78 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><circle cx=%2750%27 cy=%2750%27 r=%2736%27 fill=%27%23B85C38%27/></svg>">
     <link rel="stylesheet" href="styles.css">
-    <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})()</script>
+    <script>(function(){var d=document.documentElement,s=document.currentScript,f=s&&s.getAttribute('data-page-mode'),m=f;try{m=f||localStorage.getItem('mode')}catch(e){}m=m||'professional';d.setAttribute('data-mode',m);if(f){try{localStorage.setItem('mode',f)}catch(e){}}var t=null;try{t=localStorage.getItem('theme')}catch(e){}if(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){t='dark'}if(t){d.setAttribute('data-theme',t)}})()</script>
+    <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
 </head>
-<body>
+<body data-scene="full">
     <header>
         <div class="container">
-            <nav>
+            <div class="nav-top">
                 <a href="index.html" class="logo">Saket Ramsinghani</a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="blogs.html">Blogs</a></li>
+                <div class="nav-controls">
+                    <div class="mode-switch" role="group" aria-label="Site mode">
+                        <button type="button" class="mode-btn" data-mode-btn="personal">Personal</button>
+                        <span class="mode-divider" aria-hidden="true"></span>
+                        <button type="button" class="mode-btn" data-mode-btn="professional">Professional</button>
+                    </div>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+                </div>
+            </div>
+            <nav aria-label="Primary">
+                <ul class="nav-links nav-links--professional">
+                    <li><a href="index.html" class="active">Work</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blogs.html">Blog</a></li>
                     <li><a href="notes.html">Notes</a></li>
                     <li><a href="stats.html">Stats</a></li>
                 </ul>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+                <ul class="nav-links nav-links--personal">
+                    <li><a href="index.html" class="active">About</a></li>
+                    <li><a href="thoughts.html">Thoughts</a></li>
+                    <li><a href="reading.html">Reading</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
     <main>
         <div class="container">
-            <h1>Hello, I'm <em>Saket.</em></h1>
-            <p class="intro">Welcome to my personal website. I write about things I'm learning and share projects I'm working on.</p>
+            <section class="mode-block mode-block--professional">
+                <h1>Hello, I'm <em>Saket.</em></h1>
+                <p class="intro">I'm a developer who likes building for the web — carefully, and mostly in public.</p>
 
-            <hr class="separator">
+                <hr class="separator">
 
-            <h2>About Me</h2>
-            <p>I'm a developer based somewhere, and I enjoy building things for the web.</p>
-            <p>I'm passionate about clean code, minimal design, and continuous learning. When I'm not coding, you can find me exploring new technologies or reading about software architecture.</p>
+                <h2>Work</h2>
+                <p>I care about clean code, minimal design, and learning in the open. Most of what I make starts as a question I couldn't let go of.</p>
+                <p>You can see what I've been building on the <a href="projects.html">projects</a> page, or read along as I learn in the <a href="notes.html">notes</a>.</p>
 
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/saketramsinghani/" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="mailto:saket030801@gmail.com">Email</a>
-            </div>
+                <p class="stat-strip"><span id="strip-repos">–</span> public repos · <span id="strip-followers">–</span> followers on GitHub</p>
+
+                <div class="social-links">
+                    <a href="https://github.com/saketlovescoding" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/saketramsinghani/" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="mailto:saket030801@gmail.com">Email</a>
+                </div>
+            </section>
+
+            <section class="mode-block mode-block--personal">
+                <h1>Hello, I'm <em>still Saket.</em></h1>
+                <p class="intro">This is the quieter side of the site — notes to myself about meditation, growth, and paying attention.</p>
+
+                <hr class="separator">
+
+                <h2>Away from the keyboard</h2>
+                <p>I sit, I read slowly, and I try to grow a little on purpose. Some of what I learn along the way ends up written down.</p>
+                <p>The longer writing lives in <a href="thoughts.html">thoughts</a>, and the books shaping it are on the <a href="reading.html">reading</a> page.</p>
+
+                <div class="social-links">
+                    <a href="thoughts.html">Thoughts</a>
+                    <a href="reading.html">Reading</a>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -51,13 +88,8 @@
             <p>&copy; 2026 Saket Ramsinghani</p>
         </div>
     </footer>
-    <script>
-        document.getElementById('theme-toggle').addEventListener('click', function() {
-            var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            var next = isDark ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
-        });
-    </script>
+
+    <script src="js/site.js" defer></script>
+    <script type="module" src="js/scene.js"></script>
 </body>
 </html>
